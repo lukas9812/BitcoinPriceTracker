@@ -2,8 +2,6 @@
 using Autofac.Extensions.DependencyInjection;
 using BitcoinTracker.Interfaces;
 using BitcoinTracker.Services;
-using Hangfire;
-using Hangfire.MemoryStorage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BitcoinTracker;

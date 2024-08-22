@@ -37,14 +37,18 @@ public class HourlyJob : BackgroundService
         var price = _processService.ProcessBitcoinPrice(rawData);
         
         var imageUri = Path.GetFullPath(@"Images\btc_logo.png");
-        var audio = Path.GetFullPath(@"Images\sound_money.mp3");
+        var audioUri = Path.GetFullPath(@"Sounds\sound_money.mp3");
         
-        if(!File.Exists(audio))
+        if(!File.Exists(audioUri))
             Console.WriteLine("File for audio do not exists!");
-
+        if(!File.Exists(imageUri))
+            Console.WriteLine("File for image do not exists!");
+        if(price == 00)
+            Console.WriteLine("Cannot get data from API!");
+            
         new ToastContentBuilder()
             .AddAppLogoOverride(new Uri(imageUri))
-            .AddAudio(new Uri(audio))
+            .AddAudio(new Uri(audioUri))
             .AddText("BITCOIN PRICE NOTIFICATION")
             .AddText($"Current Bitcoin price is: {price} USD.")
             .Show();
