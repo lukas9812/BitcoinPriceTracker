@@ -1,36 +1,28 @@
-﻿using System.Net.Http;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BitcoinTracker.Interfaces;
 using BitcoinTracker.Services;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace BitcoinTracker;
 
 public static class RegisterServices
 {
-    public static IContainer RegisterAutofacServices(this ContainerBuilder builder, ServiceCollection serviceCollection)
+    public static IContainer RegisterAutofacServices(this ContainerBuilder builder, ServiceCollection services)
     {
-        serviceCollection.AddLogging();
-
-        builder.Populate(serviceCollection);
+        builder.Populate(services);
     
         builder.Register(c =>
         {
-            var client = new HttpClient
-            {
-                BaseAddress = new Uri("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
-            };
+            var client = new HttpClient();
             return client;
         }).As<HttpClient>().SingleInstance();
 
         builder.RegisterType<ProcessService>().As<IProcessService>();
         builder.RegisterType<GetApiService>().As<IGetApiService>();
-        builder.RegisterType<TriggerService>()
-            .As<IHostedService>()
-            .SingleInstance();
-            
+        
         var container = builder.Build();
         return container;
     }

@@ -10,6 +10,8 @@
     <ItemGroup>
       <PackageReference Include="Autofac" Version="8.0.0" />
       <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+      <PackageReference Include="Hangfire" Version="1.8.14" />
+      <PackageReference Include="Hangfire.MemoryStorage" Version="1.8.1.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
@@ -19,6 +21,9 @@
 
     <ItemGroup>
       <None Update="Images\btc_logo.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Images\sound_money.mp3">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
