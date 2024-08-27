@@ -2,5 +2,5 @@
 
 public interface IProcessService
 {
-    decimal ProcessBitcoinPrice(string rawData);
+    decimal GetBitcoinPriceInVariousCurrencies(string rawData);
 }

@@ -44,8 +44,9 @@ public class HourlyJob : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        var currentCurrency = _settings.ToCurrency.ToUpper();
         var rawData = await _apiService.CallBitcoinApi();
-        var price = _processService.ProcessBitcoinPrice(rawData);
+        var price = _processService.GetBitcoinPriceInVariousCurrencies(rawData);
         
         var imageUri = Path.GetFullPath(@"Images\btc_logo.png");
         var audioUri = Path.GetFullPath(@"Sounds\sound_money.mp3");
@@ -74,7 +75,7 @@ public class HourlyJob : BackgroundService
                     .AddAppLogoOverride(new Uri(imageUri))
                     .AddAudio(new Uri(audioUri))
                     .AddText("BITCOIN PRICE NOTIFICATION")
-                    .AddText($"Current Bitcoin price is: {price} USD.")
+                    .AddText($"Current Bitcoin price is: {price} {currentCurrency}.")
                     .Show();
             }
             else
@@ -83,7 +84,7 @@ public class HourlyJob : BackgroundService
                 new ToastContentBuilder()
                     .AddAppLogoOverride(new Uri(imageUri))
                     .AddText("BITCOIN PRICE NOTIFICATION")
-                    .AddText($"Current Bitcoin price is: {price} USD.")
+                    .AddText($"Current Bitcoin price is: {price} {currentCurrency}.")
                     .Show();
             }
             

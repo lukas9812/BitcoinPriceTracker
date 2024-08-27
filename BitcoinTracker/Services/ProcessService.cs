@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using BitcoinTracker.Interfaces;
 using BitcoinTracker.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace BitcoinTracker.Services;
@@ -10,16 +12,27 @@ namespace BitcoinTracker.Services;
 public class ProcessService : IProcessService
 {
     private readonly ILogger<ProcessService> _logger;
+    private readonly AppSettings _appSettings;
 
-    public ProcessService(ILogger<ProcessService> logger)
+    public ProcessService(ILogger<ProcessService> logger, IOptions<AppSettings> appSettings)
     {
         _logger = logger;
+        _appSettings = appSettings.Value;
     }
 
-    public decimal ProcessBitcoinPrice(string rawData)
+    public decimal GetBitcoinPriceInVariousCurrencies(string rawData)
     {
-        _logger.LogInformation("Deserializing raw API data.");
-        var bitcoinPrice = JsonConvert.DeserializeObject<BitcoinPrice>(rawData);
-        return bitcoinPrice == null ? 00 : bitcoinPrice.Bitcoin.Usd;
+        using var doc = JsonDocument.Parse(rawData);
+        var bitcoinElement = doc.RootElement.GetProperty("bitcoin");
+
+        var currency = _appSettings.ToCurrency;
+
+        var currencyValue =
+            bitcoinElement.TryGetProperty(currency, out var currencyValueJsonElement)
+            ? currencyValueJsonElement.GetDecimal()
+            : 00;
+
+        return currencyValue;
+
     }
 }
