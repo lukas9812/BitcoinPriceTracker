@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Net.Http;
 using BitcoinTracker.Interfaces;
 using BitcoinTracker.Models;
 using Microsoft.Extensions.Logging;

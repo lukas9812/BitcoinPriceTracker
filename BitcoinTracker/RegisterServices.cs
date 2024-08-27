@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace BitcoinTracker;
 
@@ -20,7 +21,12 @@ public static class RegisterServices
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();
 
-        services.AddLogging(logBuilder => logBuilder.AddConsole());
+        services.AddLogging(logBuilder => logBuilder.AddSimpleConsole(options =>
+        {
+            options.IncludeScopes = true;
+            options.SingleLine = true;
+            options.TimestampFormat = "HH:mm:ss ";
+        }));
         services.Configure<AppSettings>(hostBuilder.Configuration.GetSection("AppSettings"));
         
         builder.Populate(services);

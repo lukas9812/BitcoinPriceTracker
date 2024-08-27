@@ -52,10 +52,10 @@ public class HourlyJob : BackgroundService
         var audioUri = Path.GetFullPath(@"Sounds\sound_money.mp3");
         
         if(!File.Exists(audioUri))
-            _logger.LogInformation("File for audio do not exists!");
+            _logger.LogError("File for audio do not exists!");
             
         if(!File.Exists(imageUri))
-            _logger.LogInformation("File for image do not exists!");
+            _logger.LogError("File for image do not exists!");
         
         if (price == 00)
         {

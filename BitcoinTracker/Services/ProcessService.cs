@@ -4,7 +4,6 @@ using BitcoinTracker.Interfaces;
 using BitcoinTracker.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace BitcoinTracker.Services;
 
