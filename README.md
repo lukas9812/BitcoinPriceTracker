@@ -1,4 +1,4 @@
-# Bitcoin Price Notifier
+# Bitcoin Price Notifier for Windows OS :currency_exchange:
 
 ## Overview
 
