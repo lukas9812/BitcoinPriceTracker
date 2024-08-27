@@ -22,10 +22,12 @@ public class ProcessService : IProcessService
 
     public decimal GetBitcoinPriceInVariousCurrencies(string rawData)
     {
+        _logger.LogInformation("Parse json raw data.");
         using var doc = JsonDocument.Parse(rawData);
         var bitcoinElement = doc.RootElement.GetProperty("bitcoin");
 
-        var currency = _appSettings.ToCurrency;
+        var currency = _appSettings.OutputCurrency;
+        _logger.LogInformation($"Output currency is set to {currency.ToUpper()}");
 
         var currencyValue =
             bitcoinElement.TryGetProperty(currency, out var currencyValueJsonElement)

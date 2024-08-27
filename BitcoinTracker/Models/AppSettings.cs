@@ -4,5 +4,5 @@ public class AppSettings
 {
     public bool IsSoundAlertEnabled { get; init; }
     
-    public string ToCurrency { get; init; } = string.Empty;
+    public string OutputCurrency { get; init; } = string.Empty;
 }

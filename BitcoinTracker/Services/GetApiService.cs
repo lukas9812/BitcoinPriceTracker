@@ -28,7 +28,7 @@ public class GetApiService : IGetApiService
     {
         // Send GET request to the API
         _logger.LogInformation("Getting API data.");
-        var response = await _httpClient.GetAsync(ApiString(_appSettings.ToCurrency));
+        var response = await _httpClient.GetAsync(ApiString(_appSettings.OutputCurrency));
         response.EnsureSuccessStatusCode();
 
         // Read the response content as a string

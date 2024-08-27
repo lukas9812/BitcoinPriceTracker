@@ -44,7 +44,7 @@ public class HourlyJob : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var currentCurrency = _settings.ToCurrency.ToUpper();
+        var currentCurrency = _settings.OutputCurrency.ToUpper();
         var rawData = await _apiService.CallBitcoinApi();
         var price = _processService.GetBitcoinPriceInVariousCurrencies(rawData);
         
