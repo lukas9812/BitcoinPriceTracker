@@ -10,3 +10,4 @@
 - **Desktop Notifications**: Displays the Bitcoin price as a toast notification on your Windows desktop.
 - **Custom Sound Alert**: Plays a special sound with each notification to ensure you are always aware of the latest price.
 - **Background Operation**: Runs in the background, providing updates without interrupting your workflow.
+- **Change currency output**: This option is possible within appsettings.json file. Only rewrite CurrencyOutput to needed currency shortcut.
