@@ -87,7 +87,6 @@ public class HourlyJob : BackgroundService
                     .AddText($"Current Bitcoin price is: {price} {currentCurrency}.")
                     .Show();
             }
-            
         }
     }
 }
